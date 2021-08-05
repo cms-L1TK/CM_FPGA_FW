@@ -8,6 +8,9 @@ use work.axiRegPkg_d64.all;
 use work.types.all;
 use work.V_IO_Ctrl.all;
 
+use work.tf_pkg.all;
+use work.memUtil_pkg.all;
+
 
 Library UNISIM;
 use UNISIM.vcomponents.all;
@@ -107,9 +110,34 @@ architecture structure of top is
   signal bram_wrdata_a : std_logic_vector(63 downto 0);
   signal bram_rddata_a : std_logic_vector(63 downto 0);
 
+--- track trigger
+    signal DL_39_link_AV_dout: t_arr_DL_39_DATA;
+    
+    signal IL_36_mem_A_wea          : t_arr_IL_36_1b;
 
-  
-  
+--    DL_39_link_AV_dout       : in t_arr_DL_39_DATA;
+--    DL_39_link_empty_neg     : in t_arr_DL_39_1b;
+--    DL_39_link_read          : out t_arr_DL_39_1b;
+--    BW_46_stream_AV_din       : out t_arr_BW_46_DATA;
+--    BW_46_stream_A_full_neg   : in t_arr_BW_46_1b;
+--    BW_46_stream_A_write      : out t_arr_BW_46_1b;
+--    TW_72_stream_AV_din       : out t_arr_TW_72_DATA;
+--    TW_72_stream_A_full_neg   : in t_arr_TW_72_1b;
+--    TW_72_stream_A_write      : out t_arr_TW_72_1b
+    signal DL_39_link_empty_neg     :  t_arr_DL_39_1b;
+    signal DL_39_link_read          :  t_arr_DL_39_1b;
+    signal BW_46_stream_AV_din: t_arr_BW_46_DATA;
+    signal BW_46_stream_A_full_neg: t_arr_BW_46_1b;
+    signal BW_46_stream_A_write: t_arr_BW_46_1b;
+    signal TW_72_stream_AV_din: t_arr_TW_72_DATA;
+    signal TW_72_stream_A_full_neg: t_arr_TW_72_1b;
+    signal TW_72_stream_A_write: t_arr_TW_72_1b;
+    signal IR_bx_in: std_logic_vector(2 downto 0);
+    signal FT_BX_out: std_logic_vector(2 downto 0);
+    signal FT_bx_out_vld :  std_logic;
+    signal FT_DONE: std_logic ;
+    signal IR_START: std_logic;
+    
 begin  -- architecture structure
 
   --Clocking
@@ -335,4 +363,25 @@ begin  -- architecture structure
       diB   => bram_wrdata_a,
       doA   => open,
       doB   => bram_rddata_a);
+      
+      
+    SectorProcessor_1: entity work.SectorProcessor
+    port map (
+    clk => AXI_CLK,
+    reset => AXI_RESET,
+    ir_start => ir_start,
+    IR_BX_IN => IR_BX_IN,
+    FT_BX_out => FT_BX_out,
+    FT_BX_OUT_VLD => FT_BX_OUT_VLD,
+    FT_DONE => FT_DONE,
+    DL_39_link_AV_dout => DL_39_link_AV_dout,
+    DL_39_link_empty_neg => DL_39_link_empty_neg,
+    DL_39_link_read      => DL_39_link_read,
+    BW_46_stream_AV_din   => BW_46_stream_AV_din,
+    BW_46_stream_A_full_neg  => BW_46_stream_A_full_neg,
+    BW_46_stream_A_write   => BW_46_stream_A_write,
+    TW_72_stream_AV_din     => TW_72_stream_AV_din,
+    TW_72_stream_A_full_neg => TW_72_stream_A_full_neg,
+    TW_72_stream_A_write     =>  TW_72_stream_A_write
+    );
 end architecture structure;

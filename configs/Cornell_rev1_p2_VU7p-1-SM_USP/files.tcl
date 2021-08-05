@@ -38,5 +38,43 @@ set xdc_files "\
     "	    
 
 set xci_files "\
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS_1_B/IR_PS_1_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_3_A/IR_2S_3_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS10G_2_B/IR_PS10G_2_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_3_B/IR_2S_3_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS10G_1_A/IR_PS10G_1_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_2_B/IR_2S_2_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_1_A/IR_2S_1_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_2_A/IR_2S_2_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS_2_B/IR_PS_2_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_4_B/IR_2S_4_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_1_B/IR_2S_1_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS10G_3_B/IR_PS10G_3_B.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS_1_A/IR_PS_1_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS_2_A/IR_PS_2_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS10G_2_A/IR_PS10G_2_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_PS10G_3_A/IR_PS10G_3_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/IR_2S_4_A/IR_2S_4_A.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L1PHID/VMR_L1PHID.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L2PHIB/VMR_L2PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L3PHIB/VMR_L3PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L4PHIB/VMR_L4PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L5PHIB/VMR_L5PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/VMR_L6PHIB/VMR_L6PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/TE_L1L2/TE_L1L2.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/TC_L1L2F/TC_L1L2F.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/PR_L3PHIB/PR_L3PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/PR_L4PHIB/PR_L4PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/PR_L5PHIB/PR_L5PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/PR_L6PHIB/PR_L6PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/ME_L3PHIB/ME_L3PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/ME_L4PHIB/ME_L4PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/ME_L5PHIB/ME_L5PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/ME_L6PHIB/ME_L6PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/MC_L3PHIB/MC_L3PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/MC_L4PHIB/MC_L4PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/MC_L5PHIB/MC_L5PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/MC_L6PHIB/MC_L6PHIB.xci \
+              src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/FT_L1L2/FT_L1L2.xci \
     	      cores/Local_Clocking/Local_Clocking.tcl \
-    	      "
+                  	      " 

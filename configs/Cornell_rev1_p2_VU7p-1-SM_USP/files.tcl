@@ -26,7 +26,7 @@ set vhdl_files "\
      configs/Cornell_rev1_p2_VU7p-1-SM_USP/autogen/CM_FW_info/CM_V_INFO_map.vhd \          
      src/misc/axi_bram_ctrl_v4_1_rfs.vhd \
      src/misc/axi_bram_controller.vhd \
-     src/tracktrigger/IntegrationTests/ReducedConfigPR/hdl/SectorProcessor.vhd \
+     src/tracktrigger/IntegrationTests/ReducedConfigPR/hdl/SectorProcessor_debug.vhd \
      src/tracktrigger/IntegrationTests/ReducedConfigPR/hdl/memUtil_pkg.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_lut.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_mem.vhd \
@@ -78,7 +78,24 @@ set xci_files "\
               src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/MC_L6PHIB/MC_L6PHIB.xci \
               src/tracktrigger/IntegrationTests/ReducedConfigPR/script/Work/Work.srcs/sources_1/ip/FT_L1L2/FT_L1L2.xci \
     	      cores/Local_Clocking/Local_Clocking.tcl \
-    	      cores/TC_BRAM/Test_Chain_Mem_1.xcix \
-    	      cores/TC_BRAM/SummerChain_vio.xcix \
-    	      cores/TC_BRAM/SummerChain_debug.xcix \
+    	      cores/TC_BRAM/Test_Chain_Mem_1/Test_Chain_Mem_1.xci \
+    	      cores/TC_BRAM/SummerChain_vio/SummerChain_vio.xci \
+    	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_1_A_04/ROM_DL_2S_1_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_1_B_04/ROM_DL_2S_1_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_2_A_04/ROM_DL_2S_2_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_2_B_04/ROM_DL_2S_2_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_3_A_04/ROM_DL_2S_3_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_3_B_04/ROM_DL_2S_3_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_4_A_04/ROM_DL_2S_4_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_2S_4_B_04/ROM_DL_2S_4_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS10G_1_A_04/ROM_DL_PS10G_1_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS10G_2_A_04/ROM_DL_PS10G_2_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS10G_2_B_04/ROM_DL_PS10G_2_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS10G_3_A_04/ROM_DL_PS10G_3_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS10G_3_B_04/ROM_DL_PS10G_3_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS_1_A_04/ROM_DL_PS_1_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS_1_B_04/ROM_DL_PS_1_B_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS_2_A_04/ROM_DL_PS_2_A_04.xci \
+    	      cores/TC_BRAM/ROM_DL_PS_2_B_04/ROM_DL_PS_2_B_04.xci \
               " 

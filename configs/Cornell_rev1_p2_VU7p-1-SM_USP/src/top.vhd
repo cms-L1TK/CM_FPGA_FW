@@ -991,25 +991,25 @@ end generate DL_ADDR_loop;
   end process procStart;
 
 
-  SectorProcessor_1: entity work.SectorProcessor
-    port map (
-    clk => sc_clk,
-    reset => sc_rst,
-    ir_start => IR_START,
-    IR_BX_IN => IR_BX_IN,
-    FT_BX_out => FT_BX_out,
-    FT_BX_OUT_VLD => FT_BX_OUT_VLD,
-    FT_DONE => FT_DONE,
-    DL_39_link_AV_dout       => DL_39_link_AV_dout,
-    DL_39_link_empty_neg     => DL_39_link_empty_neg,
-    DL_39_link_read          => DL_39_link_read,
-    TW_84_stream_AV_din      => TW_84_stream_AV_din,
-    TW_84_stream_A_full_neg  => TW_84_stream_A_full_neg,
-    TW_84_stream_A_write     => TW_84_stream_A_write,
-    BW_46_stream_AV_din      => BW_46_stream_AV_din,
-    BW_46_stream_A_full_neg  => BW_46_stream_A_full_neg,
-    BW_46_stream_A_write     => BW_46_stream_A_write
-  );
+  --SectorProcessor_1: entity work.SectorProcessor
+-- port map (
+--    clk => sc_clk,
+--    reset => sc_rst,
+--    ir_start => IR_START,
+--    IR_BX_IN => IR_BX_IN,
+--    FT_BX_out => FT_BX_out,
+--    FT_BX_OUT_VLD => FT_BX_OUT_VLD,
+--    FT_DONE => FT_DONE,
+--    DL_39_link_AV_dout       => DL_39_link_AV_dout,
+--    DL_39_link_empty_neg     => DL_39_link_empty_neg,
+--    DL_39_link_read          => DL_39_link_read,
+--    TW_84_stream_AV_din      => TW_84_stream_AV_din,
+--    TW_84_stream_A_full_neg  => TW_84_stream_A_full_neg,
+--    TW_84_stream_A_write     => TW_84_stream_A_write,
+--    BW_46_stream_AV_din      => BW_46_stream_AV_din,
+--    BW_46_stream_A_full_neg  => BW_46_stream_A_full_neg,
+--    BW_46_stream_A_write     => BW_46_stream_A_write
+--  );
 
 tw_ena(L1L2) <= TCRAM_ENA(0) OR vio_sc_ena(0);
 tw_enb(L1L2) <= TCRAM_ENB(0) OR vio_sc_enb(0);

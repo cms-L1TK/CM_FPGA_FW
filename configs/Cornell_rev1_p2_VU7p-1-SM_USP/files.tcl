@@ -28,6 +28,7 @@ set vhdl_files "\
      src/misc/axi_bram_controller.vhd \
      src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/SectorProcessor_debug.vhd \
      src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/memUtil_pkg.vhd \
+     src/tracktrigger/IntegrationTests/common/hdl/CreateStartSignal.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_lut.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_mem.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_mem_bin.vhd \
@@ -85,6 +86,7 @@ set xci_files "\
     	      cores/TC_BRAM/Test_Chain_Mem_1/Test_Chain_Mem_1.xci \
     	      cores/TC_BRAM/SummerChain_vio/SummerChain_vio.xci \
     	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
+    	      cores/TC_BRAM/SectorProcessor_ila/SectorProcessor_ila.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_A_04/ROM_DL_2S_1_A_04.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_B_04/ROM_DL_2S_1_B_04.xci \
     	      cores/TC_BRAM/ROM_DL_2S_2_A_04/ROM_DL_2S_2_A_04.xci \

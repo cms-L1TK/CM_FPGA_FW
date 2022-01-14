@@ -25,7 +25,7 @@ puts "Using dir $projectDir for FPGA part $FPGA_part"
 source ${apollo_root_path}/configs/${build_name}/files.tcl
 
 #DRP ip
-set ip_repo_path ../bd/IP
+set ip_repo_path "../bd/IP ../src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/script"
 set_property  ip_repo_paths ${ip_repo_path}  [current_project]
 update_ip_catalog
 
@@ -45,6 +45,13 @@ for {set j 0} {$j < [llength $vhdl_files ] } {incr j} {
     set filename "${apollo_root_path}/[lindex $vhdl_files $j]"
     read_vhdl $filename
     puts "Adding $filename"
+}
+
+#Add vhdl 2008 files
+for {set j 0} {$j < [llength $vhdl_2008_files ] } {incr j} {
+    set filename "${apollo_root_path}/[lindex $vhdl_2008_files $j]"
+    read_vhdl -vhdl2008 $filename
+    puts "Adding $filename (VHDL 2008)"
 }
 
 #Add xdc files

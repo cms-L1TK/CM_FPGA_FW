@@ -29,14 +29,13 @@ set vhdl_files "\
      src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/SectorProcessor_debug.vhd \
      src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/memUtil_pkg.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/CreateStartSignal.vhd \
+     src/tracktrigger/IntegrationTests/common/hdl/tf_pkg.vhd \
+     "
+set vhdl_2008_files "\
      src/tracktrigger/IntegrationTests/common/hdl/tf_lut.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_mem.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_mem_bin.vhd \
-     src/tracktrigger/IntegrationTests/common/hdl/tf_pkg.vhd \
      "
-#     src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/memUtil_pkg.vhd \
-#     src/tracktrigger/IntegrationTests/common/hdl/tf_pkg.vhd \
-#"
 
 set xdc_files "\
     configs/Cornell_rev1_p2_VU7p-1-SM_USP/src/top_pins.xdc \

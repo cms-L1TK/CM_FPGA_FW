@@ -25,8 +25,8 @@
     <node id="WR_DATA"   address="0x3" mask="0xFFFFFFFF" permission="rw"/>
     <node id="RD_DATA"   address="0x4" mask="0xFFFFFFFF" permission="r" />
     <node id="FF_MODE"   address="0x5" mask="0x00000001" permission="rw"/>
-    <node id="ENA"       address="0x5" mask="0x00001F00" permission="rw"/>
-    <node id="ENB"       address="0x5" mask="0x001F0000" permission="rw"/>
+    <node id="ENA"       address="0x5" mask="0x00003F00" permission="rw"/>
+    <node id="ENB"       address="0x5" mask="0x003F0000" permission="rw"/>
     <node id="RST"       address="0x5" mask="0x01000000" permission="rw"/>
     <node id="START"     address="0x5" mask="0x10000000" permission="rw"/>
   </node>

@@ -55,119 +55,119 @@ architecture structure of top is
 COMPONENT ROM_DL_PS10G_1_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS10G_2_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS10G_2_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS10G_3_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS10G_3_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS_1_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS_1_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS_2_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_PS_2_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_1_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_1_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_2_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_2_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_3_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_3_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_4_A_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
 COMPONENT ROM_DL_2S_4_B_04
   PORT (
     clka : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(38 DOWNTO 0)
   );
 END COMPONENT;
@@ -194,13 +194,13 @@ COMPONENT Test_Chain_512_Mem
     clka : IN STD_LOGIC;
     ena : IN STD_LOGIC;
     wea : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
     dina : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
     douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     clkb : IN STD_LOGIC;
     enb : IN STD_LOGIC;
     web : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    addrb : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
+    addrb : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
     dinb : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
     doutb : OUT STD_LOGIC_VECTOR(31 DOWNTO 0)
   );
@@ -270,32 +270,32 @@ COMPONENT SummerChain_vio
     clk : IN STD_LOGIC;
     probe_in0 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe_in1 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe_in2 : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
-    probe_in3 : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
+    probe_in2 : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
+    probe_in3 : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
     probe_in4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe_out0 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe_out1 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
-    probe_out2 : OUT STD_LOGIC_VECTOR(4 DOWNTO 0);
-    probe_out3 : OUT STD_LOGIC_VECTOR(4 DOWNTO 0);
+    probe_out2 : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
+    probe_out3 : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
     probe_out4 : OUT STD_LOGIC_VECTOR(1 DOWNTO 0)
   );
 END COMPONENT;
 
 signal probe_in0  : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_in1  : STD_LOGIC_VECTOR(0 DOWNTO 0);
-signal probe_in2  : STD_LOGIC_VECTOR(4 DOWNTO 0);
-signal probe_in3  : STD_LOGIC_VECTOR(4 DOWNTO 0);
+signal probe_in2  : STD_LOGIC_VECTOR(5 DOWNTO 0);
+signal probe_in3  : STD_LOGIC_VECTOR(5 DOWNTO 0);
 signal probe_in4  : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_out0 : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_out1 : STD_LOGIC_VECTOR(0 DOWNTO 0);
-signal probe_out2 : STD_LOGIC_VECTOR(4 DOWNTO 0);
-signal probe_out3 : STD_LOGIC_VECTOR(4 DOWNTO 0);
+signal probe_out2 : STD_LOGIC_VECTOR(5 DOWNTO 0);
+signal probe_out3 : STD_LOGIC_VECTOR(5 DOWNTO 0);
 signal probe_out4 : STD_LOGIC_VECTOR(1 DOWNTO 0);
 
 signal vio_sc_rst   : std_logic := '0';
 signal vio_sc_start : std_logic := '0';
-signal vio_sc_ena   : std_logic_vector(4 downto 0) := "00000";
-signal vio_sc_enb   : std_logic_vector(4 downto 0) := "00000";
+signal vio_sc_ena   : std_logic_vector(5 downto 0) := "000000";
+signal vio_sc_enb   : std_logic_vector(5 downto 0) := "000000";
 signal vio_clk_sel  : std_logic_vector(1 downto 0) := "00";
 
 
@@ -352,7 +352,10 @@ PORT (
 	probe47 : IN STD_LOGIC_VECTOR(0 DOWNTO 0); 
 	probe48 : IN STD_LOGIC_VECTOR(9 DOWNTO 0);
 	probe49 : IN STD_LOGIC_VECTOR(45 DOWNTO 0);
-	probe50 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+	probe50 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe51 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
+	probe52 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe53 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
 );
 END COMPONENT  ;
 
@@ -407,17 +410,20 @@ signal probe47      : std_logic_vector(0 downto 0);
 signal probe48      : std_logic_vector(9 downto 0);
 signal probe49      : std_logic_vector(45 downto 0);
 signal probe50      : std_logic_vector(0 downto 0);
+signal probe51      : std_logic_vector(13 downto 0);
+signal probe52      : std_logic_vector(0 downto 0);
+signal probe53      : std_logic_vector(0 downto 0);
 
   signal TCRAM_write   : std_logic;
   signal TCRAM_WR_BASE : std_logic;
-  signal TCRAM_BASE_ADDR    : std_logic_vector(9 downto 0);
-  signal local_addr    : std_logic_vector(9 downto 0);
-  signal porta_addrcnt : unsigned(9 downto 0);
+  signal TCRAM_BASE_ADDR    : std_logic_vector(14 downto 0);
+  signal local_addr    : std_logic_vector(14 downto 0);
+  signal porta_addrcnt : unsigned(14 downto 0);
   signal TCRAM_WR_data : std_logic_vector(31 downto 0);
   signal TCRAM_RD_data : std_logic_vector(31 downto 0);
   signal TCRAM_FF_MODE : std_logic;
-  signal TCRAM_ENA     : std_logic_vector(4 downto 0);
-  signal TCRAM_ENB     : std_logic_vector(4 downto 0);
+  signal TCRAM_ENA     : std_logic_vector(5 downto 0);
+  signal TCRAM_ENB     : std_logic_vector(5 downto 0);
   signal TCRAM_RST     : std_logic;
   signal TCRAM_START   : std_logic;
   signal adra_rst      : std_logic;
@@ -452,9 +458,17 @@ signal probe50      : std_logic_vector(0 downto 0);
 
   signal bw_rddata       : t_arr_BW_AXI_Rd;
 
+  type t_arr_TF_ena      is array(enum_TW_84) of std_logic;
+  type t_arr_TF_addrcnt  is array(enum_TW_84) of unsigned(13 downto 0);
+  type t_arr_TF_addr     is array(enum_TW_84) of std_logic_vector(13 downto 0);
   type t_arr_TF_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
 
+  signal tf_ena          : t_arr_TW_ena;
+  signal tf_enb          : t_arr_TW_ena;
+  signal tf_addrcnt      : t_arr_TF_addrcnt;
+  signal tf_addr         : t_arr_TF_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
+  signal tf_rddata       : t_arr_TW_AXI_Rd;
   -- Empty field in the output from FT_L1L2 corresponding to disk matches
   constant emptyDiskStub : std_logic_vector(48 downto 0) := (others => '0');
   
@@ -479,15 +493,15 @@ signal probe50      : std_logic_vector(0 downto 0);
   signal DL_39_link_empty_neg       : t_arr_DL_39_1b       := (others => '0');
   signal DL_39_link_AV_dout         : t_arr_DL_39_DATA     := (others => (others => '0'));
   signal BW_46_stream_AV_din        : t_arr_BW_46_DATA     := (others => (others => '0'));
-  signal BW_46_stream_A_full_neg    : t_arr_BW_46_1b       := (others => '0');
+  signal BW_46_stream_A_full_neg    : t_arr_BW_46_1b       := (others => '1');
   signal BW_46_stream_A_write       : t_arr_BW_46_1b       := (others => '0');
   signal TW_84_stream_AV_din        : t_arr_TW_84_DATA     := (others => (others => '0'));
-  signal TW_84_stream_A_full_neg    : t_arr_TW_84_1b       := (others => '0');
+  signal TW_84_stream_A_full_neg    : t_arr_TW_84_1b       := (others => '1');
   signal TW_84_stream_A_write       : t_arr_TW_84_1b       := (others => '0');
     
   -- input memory address registers
-  type t_arr_DL_addrcnt  is array(enum_DL_39) of unsigned(9 downto 0);
-  type t_arr_DL_addr     is array(enum_DL_39) of std_logic_vector(9 downto 0);
+  type t_arr_DL_addrcnt  is array(enum_DL_39) of unsigned(11 downto 0);
+  type t_arr_DL_addr     is array(enum_DL_39) of std_logic_vector(11 downto 0);
   
   signal dl_addrcnt      : t_arr_DL_addrcnt;
   signal dl_addr         : t_arr_DL_addr;
@@ -708,8 +722,7 @@ begin  -- architecture structure
       Mon.CLK_200_LOCKED      => locked_clk200,
       Mon.BRAM.RD_DATA        => BRAM_RD_DATA,
       Mon.TCRAM.RD_DATA       => TCRAM_RD_DATA,
-      Mon.TCRAM.ADDR(9 downto 0) => local_addr,
-      Mon.TCRAM.ADDR(14 downto 10) => (others => '0'),
+      Mon.TCRAM.ADDR          => local_addr,
       Ctrl.C2C                => C2C_Ctrl,
       Ctrl.RGB.R              => led_red_local,
       Ctrl.RGB.G              => led_green_local,
@@ -720,8 +733,7 @@ begin  -- architecture structure
       Ctrl.BRAM.WR_DATA       => BRAM_WR_DATA,
       Ctrl.TCRAM.WRITE         => TCRAM_WRITE,
       Ctrl.TCRAM.WR_BASE       => TCRAM_WR_BASE,
-      Ctrl.TCRAM.BASE_ADDR(9 downto 0) => TCRAM_BASE_ADDR,
-      Ctrl.TCRAM.BASE_ADDR(14 downto 10) => open,
+      Ctrl.TCRAM.BASE_ADDR     => TCRAM_BASE_ADDR,
       Ctrl.TCRAM.WR_DATA       => TCRAM_WR_DATA,
       Ctrl.TCRAM.FF_MODE       => TCRAM_FF_MODE,
       Ctrl.TCRAM.ENA       => TCRAM_ENA,
@@ -799,6 +811,7 @@ begin  -- architecture structure
 -- Summer Chain Testing
 
 
+--  sc_clk <= clk_250;
   sc_clk <= clk_250;
   
   
@@ -932,7 +945,7 @@ ROM_DL_2S_4_B_04_i : ROM_DL_2S_4_B_04
   
 
 DL_ADDR_loop : for var in enum_dl_39 generate
-  constant N_EVENTS  : natural := 9;  --! Number of events in data link input memory
+  constant N_EVENTS  : natural := 20;  --! Number of events in data link input memory
 begin
   rd_dl_addr: process (sc_clk) is
   begin  -- process rd_dl_addr
@@ -1011,8 +1024,8 @@ SectorProcessor_1: entity work.SectorProcessor
     BW_46_stream_A_write     => BW_46_stream_A_write
   );
 
-tw_ena(L1L2) <= TCRAM_ENA(0) OR vio_sc_ena(0);
-tw_enb(L1L2) <= TCRAM_ENB(0) OR vio_sc_enb(0);
+tw_ena(L1L2) <= TCRAM_ENA(4) OR vio_sc_ena(4);
+tw_enb(L1L2) <= TCRAM_ENB(4) OR vio_sc_enb(4);
 
   incr_addr <= local_AXI_RdAck;
   adra_rst <= TCRAM_RST OR AXI_RESET;
@@ -1034,6 +1047,7 @@ tw_enb(L1L2) <= TCRAM_ENB(0) OR vio_sc_enb(0);
     
   local_addr   <= std_logic_vector(porta_addrcnt);
   axiwrdata    <= x"0000000000000000" & x"0" & "00" & tw_addr(L1L2) & "000" & ir_start & "0" & IR_BX_IN & "0" & FT_BX_out & "00" & FT_BX_OUT_VLD & FT_DONE & TCRAM_WR_DATA;
+  axiwrdata2   <= x"00000000000000000000000000000000" & x"00000000000000000000000000000000" & x"00000000000000000000000000000000" & x"0000000000000000" & "00" & tf_addr(L1L2) & "000" & ir_start & "0" & IR_BX_IN & "0" & FT_BX_out & "00" & FT_BX_OUT_VLD & FT_DONE & TCRAM_WR_DATA;
 
 
 TW_84_loop : for var in enum_TW_84 generate
@@ -1069,7 +1083,7 @@ Summer_Chain_MEM : Test_Chain_Mem_1
     clka   => AXI_CLK,
     ena    => tw_ena(var),
     wea(0) => TCRAM_WRITE,
-    addra  => local_addr,
+    addra  => local_addr(9 downto 0),
     dina   => axiwrdata,
     douta  => tw_rddata(var),
     clkb   => sc_clk,
@@ -1081,14 +1095,14 @@ Summer_Chain_MEM : Test_Chain_Mem_1
   );
 end generate TW_84_loop;
 
-bw_ena(L1L2_L3) <= TCRAM_ENA(1) OR vio_sc_ena(1);
-bw_ena(L1L2_L4) <= TCRAM_ENA(2) OR vio_sc_ena(2);
-bw_ena(L1L2_L5) <= TCRAM_ENA(3) OR vio_sc_ena(3);
-bw_ena(L1L2_L6) <= TCRAM_ENA(4) OR vio_sc_ena(4);
-bw_enb(L1L2_L3) <= TCRAM_ENB(1) OR vio_sc_enb(1);
-bw_enb(L1L2_L4) <= TCRAM_ENB(2) OR vio_sc_enb(2);
-bw_enb(L1L2_L5) <= TCRAM_ENB(3) OR vio_sc_enb(3);
-bw_enb(L1L2_L6) <= TCRAM_ENB(4) OR vio_sc_enb(4);
+bw_ena(L1L2_L3) <= TCRAM_ENA(0) OR vio_sc_ena(0);
+bw_ena(L1L2_L4) <= TCRAM_ENA(1) OR vio_sc_ena(1);
+bw_ena(L1L2_L5) <= TCRAM_ENA(2) OR vio_sc_ena(2);
+bw_ena(L1L2_L6) <= TCRAM_ENA(3) OR vio_sc_ena(3);
+bw_enb(L1L2_L3) <= TCRAM_ENB(0) OR vio_sc_enb(0);
+bw_enb(L1L2_L4) <= TCRAM_ENB(1) OR vio_sc_enb(1);
+bw_enb(L1L2_L5) <= TCRAM_ENB(2) OR vio_sc_enb(2);
+bw_enb(L1L2_L6) <= TCRAM_ENB(3) OR vio_sc_enb(3);
 
 
 BW_46_loop : for var in enum_BW_46 generate
@@ -1124,7 +1138,7 @@ Summer_Chain_MEM : Test_Chain_Mem_1
     clka   => AXI_CLK,
     ena    => bw_ena(var),
     wea(0) => TCRAM_WRITE,
-    addra  => local_addr,
+    addra  => local_addr(9 downto 0),
     dina   => axiwrdata,
     douta  => bw_rddata(var),
     clkb   => sc_clk,
@@ -1139,70 +1153,75 @@ end generate BW_46_loop;
 mem_mux: process (TCRAM_ENA, tw_rddata, bw_rddata) is
   begin  -- process mem_mux
    case (TCRAM_ENA) is
-      when "00001" =>
+      when "000001" =>
          TCRAM_RD_DATA <= tw_rddata(L1L2);
-      when "00010" =>
+      when "000010" =>
          TCRAM_RD_DATA <= bw_rddata(L1L2_L3);
-      when "00100" =>
+      when "000100" =>
          TCRAM_RD_DATA <= bw_rddata(L1L2_L4);
-      when "01000" =>
+      when "001000" =>
          TCRAM_RD_DATA <= bw_rddata(L1L2_L5);
-      when "10000" =>
+      when "010000" =>
          TCRAM_RD_DATA <= bw_rddata(L1L2_L6);
+      when "100000" =>
+         TCRAM_RD_DATA <= tf_rddata(L1L2);
       when others =>
          TCRAM_RD_DATA <= x"BADFEED5";
    end case;
 end process mem_mux;
 
---TF_464_loop : for var in enum_TW_84 generate
---begin
+tf_ena(L1L2) <= TCRAM_ENA(5) OR vio_sc_ena(5);
+tf_enb(L1L2) <= TCRAM_ENB(5) OR vio_sc_enb(5);
 
---  fill_mem: process (sc_clk) is
---  begin  -- process fill_mem
---    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
---      if sc_rst = '1' then
---        tw_addrcnt(var) <= (others => '0');
---      else
---        if TW_84_stream_A_write(var) = '1' then
---          tw_addrcnt(var) <= tw_addrcnt(var) + 16;
---        end if;
---      end if;
---    end if;
---  end process fill_mem;
+TF_464_loop : for var in enum_TW_84 generate
+begin
+
+  fill_mem: process (sc_clk) is
+  begin  -- process fill_mem
+    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+      if sc_rst = '1' then
+        tf_addrcnt(var) <= (others => '0');
+      else
+        if TW_84_stream_A_write(var) = '1' and tf_addrcnt(var) < 16368 then
+          tf_addrcnt(var) <= tf_addrcnt(var) + 16;
+        end if;
+      end if;
+    end if;
+  end process fill_mem;
   
---  mem_full: process (tw_addrcnt(var)) is
+--  mem_full: process (tf_addrcnt(var)) is
 --  begin  -- process mem_full
---          if tw_addrcnt(var) < 1008 then
+--          if tf_addrcnt(var) < 16368 then
 --            TW_84_stream_A_full_neg(var) <= '1';
 --          else
 --            TW_84_stream_A_full_neg(var) <= '0';
 --          end if;
 --  end process mem_full;
    
---  tw_addr(var)      <= std_logic_vector(tw_addrcnt(var));
---  tf_wrdata(var)    <= TW_84_stream_AV_din(var)&BW_46_stream_AV_din(L1L2_L3)&BW_46_stream_AV_din(L1L2_L4)&BW_46_stream_AV_din(L1L2_L5)&BW_46_stream_AV_din(L1L2_L6)&emptyDiskStub&emptyDiskStub&emptyDiskStub&emptyDiskStub & x"FACE" & x"ADD3" & x"0" & "00" & tw_addr(var);
+  tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
+  tf_wrdata(var)    <= x"ADD3" & x"0" & "00" & tw_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
   
---Summer_Chain_512_MEM : Test_Chain_512_Mem
---  PORT MAP (
---    clka   => AXI_CLK,
---    ena    => tw_ena(var),
---    wea(0) => TCRAM_WRITE,
---    addra  => local_addr,
---    dina   => axiwrdata2,
---    douta  => tw_rddata(var),
---    clkb   => sc_clk,
---    enb    => tw_enb(var),
---    web(0) => TW_84_stream_A_write(var),
---    addrb  => tw_addr(var),
---    dinb   => tf_wrdata(var),
---    doutb  => open
---  );
---end generate TF_464_loop;
+Summer_Chain_512_MEM : Test_Chain_512_Mem
+  PORT MAP (
+    clka   => AXI_CLK,
+    ena    => tf_ena(var),
+    wea(0) => TCRAM_WRITE,
+    addra  => local_addr(13 downto 0),
+    dina   => axiwrdata2,
+    douta  => tf_rddata(var),
+    clkb   => sc_clk,
+    enb    => tf_enb(var),
+    web(0) => TW_84_stream_A_write(var),
+    addrb  => tf_addr(var),
+    dinb   => tf_wrdata(var),
+    doutb  => open
+  );
+end generate TF_464_loop;
 
 probe_in0(0) <= sc_rst;
 probe_in1(0) <= IR_START;
-probe_in2    <= bw_ena(L1L2_L6) & bw_ena(L1L2_L5) & bw_ena(L1L2_L4) & bw_ena(L1L2_L3) & tw_ena(L1L2);
-probe_in3    <= bw_enb(L1L2_L6) & bw_enb(L1L2_L5) & bw_enb(L1L2_L4) & bw_enb(L1L2_L3) & tw_enb(L1L2);
+probe_in2    <= tf_ena(L1L2) & tw_ena(L1L2) & bw_ena(L1L2_L6) & bw_ena(L1L2_L5) & bw_ena(L1L2_L4) & bw_ena(L1L2_L3);
+probe_in3    <= tf_enb(L1L2) & tw_enb(L1L2) & bw_enb(L1L2_L6) & bw_enb(L1L2_L5) & bw_enb(L1L2_L4) & bw_enb(L1L2_L3);
 probe_in4(0) <= START_FIRST_LINK;
 vio_sc_rst   <= probe_out0(0);
 vio_sc_start <= probe_out1(0);
@@ -1278,6 +1297,9 @@ probe47(0)  <= BW_46_stream_A_write(L1L2_L6);
 probe48     <= bw_addr(L1L2_L6);
 probe49     <= BW_46_stream_AV_din(L1L2_L6);
 probe50(0)  <= START_FIRST_LINK;
+probe51     <= tf_addr(L1L2);
+probe52(0)  <= tf_ena(L1L2);
+probe53(0)  <= tf_enb(L1L2);
 
 SummerChain_debug_1 : SummerChain_debug
 PORT MAP (
@@ -1332,7 +1354,10 @@ PORT MAP (
 	probe47 => probe47, 
 	probe48 => probe48,
 	probe49 => probe49,
-	probe50 => probe50
+	probe50 => probe50,
+	probe51 => probe51,
+	probe52 => probe52,
+	probe53 => probe53
 );
 
 end architecture structure;

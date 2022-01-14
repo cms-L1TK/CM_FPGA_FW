@@ -84,6 +84,7 @@ set xci_files "\
               src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/script/Work/Work.srcs/sources_1/ip/FT_L1L2/FT_L1L2.xci \
     	      cores/Local_Clocking/Local_Clocking.tcl \
     	      cores/TC_BRAM/Test_Chain_Mem_1/Test_Chain_Mem_1.xci \
+    	      cores/TC_BRAM/Test_Chain_512_Mem/Test_Chain_512_Mem.xci \
     	      cores/TC_BRAM/SummerChain_vio/SummerChain_vio.xci \
     	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
     	      cores/TC_BRAM/SectorProcessor_ila/SectorProcessor_ila.xci \

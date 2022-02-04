@@ -17,7 +17,7 @@ set vhdl_files "\
      regmap_helper/axiReg/axiRegPkg.vhd \
      regmap_helper/axiReg/axiReg.vhd \
      configs/Cornell_rev1_p2_VU7p-1-SM_USP/autogen/CM_IO/V_IO_PKG.vhd \
-     configs/Cornell_rev1_p2_VU7p-1-SM_USP/autogen/CM_IO/V_IO_map_custom.vhd \
+     src/custom/V_IO_map_custom.vhd \
      src/misc/RGB_PWM.vhd \
      src/misc/LED_PWM.vhd \
      src/misc/rate_counter.vhd \

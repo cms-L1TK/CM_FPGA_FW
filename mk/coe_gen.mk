@@ -7,7 +7,7 @@ OUTPUTS = $(patsubst %.dat,%.coe,$(INPUTS))
 coe_gen: $(OUTPUTS)
 
 %.coe: %.dat
-	@echo "Generating .coe memory file '$	@'"
+	@echo "Generating .coe memory file '$@'"
 	@python $(SCRIPT_DIR)/processMemory.py -i $< -n $(NUM_EVENTS)
 
 clean_coe:

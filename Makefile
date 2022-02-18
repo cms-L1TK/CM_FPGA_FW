@@ -1,4 +1,5 @@
 include mk/helpers.mk
+include mk/coe_gen.mk
 
 #################################################################################
 # VIVADO stuff
@@ -32,7 +33,7 @@ ADDRESS_TABLE = ${MAKE_PATH}/os/address_table/address_CM.xml
 CONFIGS=$(patsubst configs/%/,%,$(dir $(wildcard configs/*/)))
 
 define CONFIGS_template =
- $(1): clean
+ $(1): clean coe_gen
 	time $(MAKE) $(BIT_BASE)$$(@).bit || $(MAKE) NOTIFY_DAN_BAD
 endef
 ################################################################################
@@ -85,7 +86,7 @@ clean_bit:
 clean_kernel:
 	@echo "Clean hw files"
 	@rm -rf ${MAKE_PATH}/kernel/hw/*
-clean: clean_bd clean_ip clean_bit clean_kernel clean_prebuild 
+clean: clean_bd clean_ip clean_bit clean_kernel clean_prebuild clean_coe
 	@rm -rf ${MAKE_PATH}/proj/*
 	@rm -f make_log.txt
 	@echo "Cleaning up"

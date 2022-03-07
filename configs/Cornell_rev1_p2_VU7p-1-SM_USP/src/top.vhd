@@ -281,6 +281,8 @@ COMPONENT SummerChain_vio
     probe_in2 : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
     probe_in3 : IN STD_LOGIC_VECTOR(5 DOWNTO 0);
     probe_in4 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe_in5 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+    probe_in6 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     probe_out0 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe_out1 : OUT STD_LOGIC_VECTOR(0 DOWNTO 0);
     probe_out2 : OUT STD_LOGIC_VECTOR(5 DOWNTO 0);
@@ -294,6 +296,8 @@ signal probe_in1  : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_in2  : STD_LOGIC_VECTOR(5 DOWNTO 0);
 signal probe_in3  : STD_LOGIC_VECTOR(5 DOWNTO 0);
 signal probe_in4  : STD_LOGIC_VECTOR(0 DOWNTO 0);
+signal probe_in5  : STD_LOGIC_VECTOR(0 DOWNTO 0);
+signal probe_in6  : STD_LOGIC_VECTOR(31 DOWNTO 0);
 signal probe_out0 : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_out1 : STD_LOGIC_VECTOR(0 DOWNTO 0);
 signal probe_out2 : STD_LOGIC_VECTOR(5 DOWNTO 0);
@@ -363,7 +367,15 @@ PORT (
 	probe50 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
 	probe51 : IN STD_LOGIC_VECTOR(13 DOWNTO 0);
 	probe52 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
-	probe53 : IN STD_LOGIC_VECTOR(0 DOWNTO 0)
+	probe53 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe54 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe55 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe56 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe57 : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
+	probe58 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
+	probe59 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
+	probe60 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
+	probe61 : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
 );
 END COMPONENT  ;
 
@@ -421,6 +433,14 @@ signal probe50      : std_logic_vector(0 downto 0);
 signal probe51      : std_logic_vector(13 downto 0);
 signal probe52      : std_logic_vector(0 downto 0);
 signal probe53      : std_logic_vector(0 downto 0);
+signal probe54      : std_logic_vector(0 downto 0);
+signal probe55      : std_logic_vector(0 downto 0);
+signal probe56      : std_logic_vector(0 downto 0);
+signal probe57      : std_logic_vector(0 downto 0);
+signal probe58      : std_logic_vector(511 downto 0);
+signal probe59      : std_logic_vector(511 downto 0);
+signal probe60      : std_logic_vector(511 downto 0);
+signal probe61      : std_logic_vector(31 downto 0);
 
   signal TCRAM_write   : std_logic;
   signal TCRAM_WR_BASE : std_logic;
@@ -469,6 +489,8 @@ signal probe53      : std_logic_vector(0 downto 0);
   type t_arr_TF_ena      is array(enum_TW_84) of std_logic;
   type t_arr_TF_addrcnt  is array(enum_TW_84) of unsigned(13 downto 0);
   type t_arr_TF_addr     is array(enum_TW_84) of std_logic_vector(13 downto 0);
+  type t_arr_TF_errcnt   is array(enum_TW_84) of unsigned(31 downto 0);
+  type t_arr_TF_errors   is array(enum_TW_84) of std_logic_vector(31 downto 0);
   type t_arr_TF_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
 
   signal tf_ena          : t_arr_TW_ena;
@@ -484,11 +506,20 @@ signal probe53      : std_logic_vector(0 downto 0);
 -- TF Emulatator signals
   type t_arr_TF_em_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
   type t_arr_TF_em_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
-  type t_arr_TF_em_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
 
   signal tf_em_addrcnt      : t_arr_TF_addrcnt;
   signal tf_em_addr         : t_arr_TF_addr;
   signal tf_em_rddata       : t_arr_TF_dout_FF;
+  signal comp_em_reg       : t_arr_TF_dout_FF;
+  signal comp_tf_reg       : t_arr_TF_dout_FF;
+  signal comp_err_reg      : t_arr_TF_dout_FF;
+  signal comp_valid        : std_logic := '0';
+  signal comp_valid_1      : std_logic := '0';
+  signal comp_valid_2      : std_logic := '0';
+  signal error_flag        : t_arr_TF_ena := (others => '0');
+  signal err_count         : t_arr_TF_errcnt := (others => (others => '0'));
+  signal errors            : t_arr_TF_errors := (others => (others => '0'));
+ 
   
   signal sc_rst          : std_logic;
   signal SC_RESET        : std_logic := '1';
@@ -960,13 +991,6 @@ ROM_DL_2S_4_B_04_i : ROM_DL_2S_4_B_04
     addra => dl_addr(twoS_4_B),
     douta => DL_39_link_AV_dout(twoS_4_B)
   );
-  
-ROM_TF_L1L2_i : ROM_TF_L1L2
-  PORT MAP (
-    clka => sc_clk,
-    addra => tf_em_addr(L1l2),
-    douta => tf_em_rddata(L1l2)
-  );
 
 DL_ADDR_loop : for var in enum_dl_39 generate
   constant N_EVENTS  : natural := 20;  --! Number of events in data link input memory
@@ -1223,7 +1247,7 @@ begin
 --  end process mem_full;
    
   tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
-  tf_wrdata(var)    <= x"ADD3" & "00" & tf_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_wrdata(var)    <= x"ADD3" & x"0" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
   
 Summer_Chain_512_MEM : Test_Chain_512_Mem
   PORT MAP (
@@ -1241,12 +1265,94 @@ Summer_Chain_512_MEM : Test_Chain_512_Mem
     doutb  => tf_rddata(var)
   );
 end generate TF_464_loop;
+  
+ROM_TF_L1L2_i : ROM_TF_L1L2
+  PORT MAP (
+    clka => sc_clk,
+    addra => tf_em_addr(L1l2),
+    douta => tf_em_rddata(L1l2)
+  );
+
+TF_emulator_ADDR_loop : for var in enum_TW_84 generate
+  constant N_EM_WORDS  : natural := 9;  --! Number of words in TF emulator memory
+begin
+  rd_tf_em_addr: process (sc_clk) is
+  begin  -- process rd_tf_em_addr
+    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+      if sc_rst = '1' then
+        tf_em_addrcnt(var) <= (others => '0');
+      else
+        if TW_84_stream_A_write(var) = '1' and tf_em_addrcnt(var) < (N_EM_WORDS-1) then
+          tf_em_addrcnt(var) <= tf_em_addrcnt(var) + 1;
+        else
+          tf_em_addrcnt(var) <= (others => '0');
+        end if;
+      end if;
+    end if;
+  end process rd_tf_em_addr;
+  tf_em_addr(var)   <= std_logic_vector(tf_em_addrcnt(var));
+end generate TF_emulator_ADDR_loop;
+
+TF_comp_hold_loop : for var in enum_TW_84 generate
+begin
+  hold_regs: process (sc_clk) is
+  begin  -- process rd_tf_em_addr
+    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+        if TW_84_stream_A_write(var) = '1' then
+          comp_em_reg(var) <= tf_em_rddata(var);
+          comp_tf_reg(var) <= tf_wrdata(var);
+          comp_valid       <= '1';
+        else
+          comp_em_reg(var) <= comp_em_reg(var);
+          comp_tf_reg(var) <= comp_tf_reg(var);
+          comp_valid       <= '0';
+        end if;
+    end if;
+  end process hold_regs;
+end generate TF_comp_hold_loop;
+
+process (sc_clk) is
+begin
+if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+  comp_valid_1 <= comp_valid;
+  comp_valid_2 <= comp_valid_1;
+end if;
+end process;
+
+TF_comp_err_loop : for var in enum_TW_84 generate
+begin
+  err_regs: process (sc_clk) is
+  begin  -- process err_regs
+    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+        if comp_valid = '1' then
+          comp_err_reg(var) <= comp_em_reg(var) xor comp_tf_reg(var);
+        else
+          comp_err_reg(var) <= comp_err_reg(var);
+        end if;
+        if comp_valid_2 = '1' and comp_err_reg(var) = x"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" then
+          error_flag(var) <= '1';
+        else
+          error_flag(var) <= '0';
+        end if;
+        if sc_rst = '1' then
+          err_count(var) <= (others => '0');
+        else
+          if error_flag(var) = '1' then
+            err_count(var) <= err_count(var) + 1;
+          end if;
+        end if;
+    end if;
+  end process err_regs;
+  errors(var)   <= std_logic_vector(err_count(var));
+end generate TF_comp_err_loop;
 
 probe_in0(0) <= sc_rst;
 probe_in1(0) <= IR_START;
 probe_in2    <= tf_ena(L1L2) & tw_ena(L1L2) & bw_ena(L1L2_L6) & bw_ena(L1L2_L5) & bw_ena(L1L2_L4) & bw_ena(L1L2_L3);
 probe_in3    <= tf_enb(L1L2) & tw_enb(L1L2) & bw_enb(L1L2_L6) & bw_enb(L1L2_L5) & bw_enb(L1L2_L4) & bw_enb(L1L2_L3);
 probe_in4(0) <= START_FIRST_LINK;
+probe_in5(0) <= error_flag(L1l2);
+probe_in6    <= errors(L1l2);
 vio_sc_rst   <= probe_out0(0);
 vio_sc_start <= probe_out1(0);
 vio_sc_ena   <= probe_out2;
@@ -1262,6 +1368,8 @@ SummerChain_vio_1 : SummerChain_vio
     probe_in2 => probe_in2,
     probe_in3 => probe_in3,
     probe_in4 => probe_in4,
+    probe_in5 => probe_in5,
+    probe_in6 => probe_in6,
     probe_out0 => probe_out0,
     probe_out1 => probe_out1,
     probe_out2 => probe_out2,
@@ -1324,6 +1432,14 @@ probe50(0)  <= START_FIRST_LINK;
 probe51     <= tf_addr(L1L2);
 probe52(0)  <= tf_ena(L1L2);
 probe53(0)  <= tf_enb(L1L2);
+probe54(0)  <= comp_valid;
+probe55(0)  <= comp_valid_1;
+probe56(0)  <= comp_valid_1;
+probe57(0)  <= error_flag(L1L2);
+probe58     <= comp_tf_reg(L1L2);
+probe59     <= comp_em_reg(L1L2);
+probe60     <= comp_err_reg(L1L2);
+probe61     <= errors(L1L2);
 
 SummerChain_debug_1 : SummerChain_debug
 PORT MAP (
@@ -1381,7 +1497,15 @@ PORT MAP (
 	probe50 => probe50,
 	probe51 => probe51,
 	probe52 => probe52,
-	probe53 => probe53
+	probe53 => probe53,
+	probe54 => probe54,
+	probe55 => probe55,
+	probe56 => probe56,
+	probe57 => probe57,
+	probe58 => probe58,
+	probe59 => probe59,
+	probe60 => probe60,
+	probe61 => probe61
 );
 
 end architecture structure;

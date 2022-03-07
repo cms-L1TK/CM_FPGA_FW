@@ -1199,7 +1199,7 @@ begin
 --  end process mem_full;
    
   tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
-  tf_wrdata(var)    <= x"ADD3" & x"0" & "00" & tw_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_wrdata(var)    <= x"ADD3" & "00" & tf_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
   
 Summer_Chain_512_MEM : Test_Chain_512_Mem
   PORT MAP (

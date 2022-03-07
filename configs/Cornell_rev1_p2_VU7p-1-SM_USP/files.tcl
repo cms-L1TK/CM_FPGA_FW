@@ -26,7 +26,7 @@ set vhdl_files "\
      configs/Cornell_rev1_p2_VU7p-1-SM_USP/autogen/CM_FW_info/CM_V_INFO_map.vhd \          
      src/misc/axi_bram_ctrl_v4_1_rfs.vhd \
      src/misc/axi_bram_controller.vhd \
-     src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/SectorProcessor_debug.vhd \
+     src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/SectorProcessor.vhd \
      src/tracktrigger/IntegrationTests/ReducedConfig/IRtoTB/hdl/memUtil_pkg.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/CreateStartSignal.vhd \
      src/tracktrigger/IntegrationTests/common/hdl/tf_pkg.vhd \
@@ -85,7 +85,6 @@ set xci_files "\
     	      cores/TC_BRAM/Test_Chain_Mem_1/Test_Chain_Mem_1.xci \
     	      cores/TC_BRAM/Test_Chain_512_Mem/Test_Chain_512_Mem.xci \
     	      cores/TC_BRAM/SummerChain_vio/SummerChain_vio.xci \
-    	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
     	      cores/TC_BRAM/SectorProcessor_ila/SectorProcessor_ila.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_A_04/ROM_DL_2S_1_A_04.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_B_04/ROM_DL_2S_1_B_04.xci \
@@ -104,4 +103,6 @@ set xci_files "\
     	      cores/TC_BRAM/ROM_DL_PS_1_B_04/ROM_DL_PS_1_B_04.xci \
     	      cores/TC_BRAM/ROM_DL_PS_2_A_04/ROM_DL_PS_2_A_04.xci \
     	      cores/TC_BRAM/ROM_DL_PS_2_B_04/ROM_DL_PS_2_B_04.xci \
+    	      cores/TC_BRAM/ROM_TF_L12/ROM_TF_L12.xci \
               " 
+#    	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \

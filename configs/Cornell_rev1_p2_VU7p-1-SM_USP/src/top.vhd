@@ -172,6 +172,14 @@ COMPONENT ROM_DL_2S_4_B_04
   );
 END COMPONENT;
 
+COMPONENT ROM_TF_L1L2
+  PORT (
+    clka : IN STD_LOGIC;
+    addra : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(511 DOWNTO 0)
+  );
+END COMPONENT;
+
 COMPONENT Test_Chain_Mem_1
   PORT (
     clka : IN STD_LOGIC;
@@ -468,9 +476,19 @@ signal probe53      : std_logic_vector(0 downto 0);
   signal tf_addrcnt      : t_arr_TF_addrcnt;
   signal tf_addr         : t_arr_TF_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
-  signal tf_rddata       : t_arr_TW_AXI_Rd;
+  signal tf_rddata       : t_arr_TF_dout_FF;
+  signal tf_rd_AXI_data  : t_arr_TW_AXI_Rd;
   -- Empty field in the output from FT_L1L2 corresponding to disk matches
   constant emptyDiskStub : std_logic_vector(48 downto 0) := (others => '0');
+
+-- TF Emulatator signals
+  type t_arr_TF_em_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
+  type t_arr_TF_em_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
+  type t_arr_TF_em_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
+
+  signal tf_em_addrcnt      : t_arr_TF_addrcnt;
+  signal tf_em_addr         : t_arr_TF_addr;
+  signal tf_em_rddata       : t_arr_TF_dout_FF;
   
   signal sc_rst          : std_logic;
   signal SC_RESET        : std_logic := '1';
@@ -943,6 +961,12 @@ ROM_DL_2S_4_B_04_i : ROM_DL_2S_4_B_04
     douta => DL_39_link_AV_dout(twoS_4_B)
   );
   
+ROM_TF_L1L2_i : ROM_TF_L1L2
+  PORT MAP (
+    clka => sc_clk,
+    addra => tf_em_addr(L1l2),
+    douta => tf_em_rddata(L1l2)
+  );
 
 DL_ADDR_loop : for var in enum_dl_39 generate
   constant N_EVENTS  : natural := 20;  --! Number of events in data link input memory
@@ -1164,7 +1188,7 @@ mem_mux: process (TCRAM_ENA, tw_rddata, bw_rddata) is
       when "010000" =>
          TCRAM_RD_DATA <= bw_rddata(L1L2_L6);
       when "100000" =>
-         TCRAM_RD_DATA <= tf_rddata(L1L2);
+         TCRAM_RD_DATA <= tf_rd_AXI_data(L1L2);
       when others =>
          TCRAM_RD_DATA <= x"BADFEED5";
    end case;
@@ -1208,13 +1232,13 @@ Summer_Chain_512_MEM : Test_Chain_512_Mem
     wea(0) => TCRAM_WRITE,
     addra  => local_addr(13 downto 0),
     dina   => axiwrdata2,
-    douta  => tf_rddata(var),
+    douta  => tf_rd_AXI_data(var),
     clkb   => sc_clk,
     enb    => tf_enb(var),
     web(0) => TW_84_stream_A_write(var),
     addrb  => tf_addr(var),
     dinb   => tf_wrdata(var),
-    doutb  => open
+    doutb  => tf_rddata(var)
   );
 end generate TF_464_loop;
 

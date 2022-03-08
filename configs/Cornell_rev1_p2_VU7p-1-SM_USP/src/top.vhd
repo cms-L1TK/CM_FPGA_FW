@@ -498,7 +498,7 @@ signal probe61      : std_logic_vector(31 downto 0);
   signal tf_addrcnt      : t_arr_TF_addrcnt;
   signal tf_addr         : t_arr_TF_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
-  signal tf_rddata       : t_arr_TF_dout_FF;
+  --  signal tf_rddata       : t_arr_TF_dout_FF;
   signal tf_rd_AXI_data  : t_arr_TW_AXI_Rd;
   -- Empty field in the output from FT_L1L2 corresponding to disk matches
   constant emptyDiskStub : std_logic_vector(48 downto 0) := (others => '0');
@@ -1262,7 +1262,7 @@ Summer_Chain_512_MEM : Test_Chain_512_Mem
     web(0) => TW_84_stream_A_write(var),
     addrb  => tf_addr(var),
     dinb   => tf_wrdata(var),
-    doutb  => tf_rddata(var)
+    doutb  => open
   );
 end generate TF_464_loop;
   

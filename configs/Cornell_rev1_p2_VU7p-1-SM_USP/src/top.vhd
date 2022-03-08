@@ -507,8 +507,8 @@ signal probe61      : std_logic_vector(31 downto 0);
   type t_arr_TF_em_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
   type t_arr_TF_em_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
 
-  signal tf_em_addrcnt      : t_arr_TF_addrcnt;
-  signal tf_em_addr         : t_arr_TF_addr;
+  signal tf_em_addrcnt      : t_arr_TF_em_addrcnt;
+  signal tf_em_addr         : t_arr_TF_em_addr;
   signal tf_em_rddata       : t_arr_TF_dout_FF;
   signal comp_em_reg       : t_arr_TF_dout_FF;
   signal comp_tf_reg       : t_arr_TF_dout_FF;
@@ -1296,7 +1296,7 @@ end generate TF_emulator_ADDR_loop;
 TF_comp_hold_loop : for var in enum_TW_84 generate
 begin
   hold_regs: process (sc_clk) is
-  begin  -- process rd_tf_em_addr
+  begin  -- process hold_regs
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
         if TW_84_stream_A_write(var) = '1' then
           comp_em_reg(var) <= tf_em_rddata(var);

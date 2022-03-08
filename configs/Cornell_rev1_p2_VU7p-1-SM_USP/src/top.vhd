@@ -1198,7 +1198,7 @@ Summer_Chain_MEM : Test_Chain_Mem_1
   );
 end generate BW_46_loop;
 
-mem_mux: process (TCRAM_ENA, tw_rddata, bw_rddata) is
+mem_mux: process (TCRAM_ENA, tw_rddata, bw_rddata, tf_rd_AXI_data) is
   begin  -- process mem_mux
    case (TCRAM_ENA) is
       when "000001" =>
@@ -1247,7 +1247,7 @@ begin
 --  end process mem_full;
    
   tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
-  tf_wrdata(var)    <= x"ADD3" & x"0" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_wrdata(var)    <= x"ADD3" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
   
 Summer_Chain_512_MEM : Test_Chain_512_Mem
   PORT MAP (

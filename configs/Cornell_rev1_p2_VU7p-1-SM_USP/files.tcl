@@ -85,7 +85,7 @@ set xci_files "\
     	      cores/TC_BRAM/Test_Chain_Mem_1/Test_Chain_Mem_1.xci \
     	      cores/TC_BRAM/Test_Chain_512_Mem/Test_Chain_512_Mem.xci \
     	      cores/TC_BRAM/SummerChain_vio/SummerChain_vio.xci \
-    	      cores/TC_BRAM/SectorProcessor_ila/SectorProcessor_ila.xci \
+    	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_A_04/ROM_DL_2S_1_A_04.xci \
     	      cores/TC_BRAM/ROM_DL_2S_1_B_04/ROM_DL_2S_1_B_04.xci \
     	      cores/TC_BRAM/ROM_DL_2S_2_A_04/ROM_DL_2S_2_A_04.xci \
@@ -105,4 +105,4 @@ set xci_files "\
     	      cores/TC_BRAM/ROM_DL_PS_2_B_04/ROM_DL_PS_2_B_04.xci \
     	      cores/TC_BRAM/ROM_TF_L1L2/ROM_TF_L1L2.xci \
               " 
-#    	      cores/TC_BRAM/SummerChain_debug/SummerChain_debug.xci \
+#    	      cores/TC_BRAM/SectorProcessor_ila/SectorProcessor_ila.xci \

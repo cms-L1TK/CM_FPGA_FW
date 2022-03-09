@@ -375,7 +375,9 @@ PORT (
 	probe58 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
 	probe59 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
 	probe60 : IN STD_LOGIC_VECTOR(511 DOWNTO 0);
-	probe61 : IN STD_LOGIC_VECTOR(31 DOWNTO 0)
+	probe61 : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+	probe62 : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+	probe63 : IN STD_LOGIC_VECTOR(511 DOWNTO 0)
 );
 END COMPONENT  ;
 
@@ -441,6 +443,8 @@ signal probe58      : std_logic_vector(511 downto 0);
 signal probe59      : std_logic_vector(511 downto 0);
 signal probe60      : std_logic_vector(511 downto 0);
 signal probe61      : std_logic_vector(31 downto 0);
+signal probe62      : std_logic_vector(7 downto 0);
+signal probe63      : std_logic_vector(511 downto 0);
 
   signal TCRAM_write   : std_logic;
   signal TCRAM_WR_BASE : std_logic;
@@ -1329,7 +1333,7 @@ begin
         else
           comp_err_reg(var) <= comp_err_reg(var);
         end if;
-        if comp_valid_2 = '1' and comp_err_reg(var) = x"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" then
+        if comp_valid_1 = '1' and comp_err_reg(var) /= x"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" then
           error_flag(var) <= '1';
         else
           error_flag(var) <= '0';
@@ -1434,12 +1438,14 @@ probe52(0)  <= tf_ena(L1L2);
 probe53(0)  <= tf_enb(L1L2);
 probe54(0)  <= comp_valid;
 probe55(0)  <= comp_valid_1;
-probe56(0)  <= comp_valid_1;
+probe56(0)  <= comp_valid_2;
 probe57(0)  <= error_flag(L1L2);
 probe58     <= comp_tf_reg(L1L2);
 probe59     <= comp_em_reg(L1L2);
 probe60     <= comp_err_reg(L1L2);
 probe61     <= errors(L1L2);
+probe62     <= tf_em_addr(L1L2);
+probe63     <= tf_em_rddata(L1L2);
 
 SummerChain_debug_1 : SummerChain_debug
 PORT MAP (
@@ -1505,7 +1511,9 @@ PORT MAP (
 	probe58 => probe58,
 	probe59 => probe59,
 	probe60 => probe60,
-	probe61 => probe61
+	probe61 => probe61,
+	probe62 => probe62,
+	probe63 => probe63
 );
 
 end architecture structure;

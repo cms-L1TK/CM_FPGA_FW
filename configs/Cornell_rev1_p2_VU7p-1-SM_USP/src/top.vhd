@@ -502,24 +502,28 @@ signal probe63      : std_logic_vector(511 downto 0);
   signal tf_addrcnt      : t_arr_TF_addrcnt;
   signal tf_addr         : t_arr_TF_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
+  signal tf_wrdata_1     : t_arr_TF_dout_FF;
+  signal tf_wrdata_2     : t_arr_TF_dout_FF;
   --  signal tf_rddata       : t_arr_TF_dout_FF;
   signal tf_rd_AXI_data  : t_arr_TW_AXI_Rd;
   -- Empty field in the output from FT_L1L2 corresponding to disk matches
   constant emptyDiskStub : std_logic_vector(48 downto 0) := (others => '0');
 
 -- TF Emulatator signals
-  type t_arr_TF_em_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
-  type t_arr_TF_em_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
+  type t_arr_TF_sim_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
+  type t_arr_TF_sim_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
 
-  signal tf_em_addrcnt      : t_arr_TF_em_addrcnt;
-  signal tf_em_addr         : t_arr_TF_em_addr;
-  signal tf_em_rddata       : t_arr_TF_dout_FF;
-  signal comp_em_reg       : t_arr_TF_dout_FF;
+  signal tf_sim_addrcnt    : t_arr_TF_sim_addrcnt;
+  signal tf_sim_addr       : t_arr_TF_sim_addr;
+  signal tf_sim_rddata     : t_arr_TF_dout_FF;
+  signal comp_sim_reg      : t_arr_TF_dout_FF;
   signal comp_tf_reg       : t_arr_TF_dout_FF;
   signal comp_err_reg      : t_arr_TF_dout_FF;
-  signal comp_valid        : std_logic := '0';
-  signal comp_valid_1      : std_logic := '0';
-  signal comp_valid_2      : std_logic := '0';
+  signal comp_valid        : t_arr_TF_ena := (others => '0');
+  signal pre_comp_valid_1  : t_arr_TF_ena := (others => '0');
+  signal pre_comp_valid_2  : t_arr_TF_ena := (others => '0');
+  signal comp_valid_1      : t_arr_TF_ena := (others => '0');
+  signal comp_valid_2      : t_arr_TF_ena := (others => '0');
   signal error_flag        : t_arr_TF_ena := (others => '0');
   signal err_count         : t_arr_TF_errcnt := (others => (others => '0'));
   signal errors            : t_arr_TF_errors := (others => (others => '0'));
@@ -1273,67 +1277,63 @@ end generate TF_464_loop;
 ROM_TF_L1L2_i : ROM_TF_L1L2
   PORT MAP (
     clka => sc_clk,
-    addra => tf_em_addr(L1l2),
-    douta => tf_em_rddata(L1l2)
+    addra => tf_sim_addr(L1l2),
+    douta => tf_sim_rddata(L1l2)
   );
 
-TF_emulator_ADDR_loop : for var in enum_TW_84 generate
-  constant N_EM_WORDS  : natural := 9;  --! Number of words in TF emulator memory
+TF_simulator_ADDR_loop : for var in enum_TW_84 generate
+  constant N_SIM_WORDS  : natural := 9;  --! Number of words in TF simulator memory
 begin
-  rd_tf_em_addr: process (sc_clk) is
-  begin  -- process rd_tf_em_addr
+  rd_tf_sim_addr: process (sc_clk) is
+  begin  -- process rd_tf_sim_addr
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
       if sc_rst = '1' then
-        tf_em_addrcnt(var) <= (others => '0');
+        tf_sim_addrcnt(var) <= (others => '0');
       else
-        if TW_84_stream_A_write(var) = '1' and tf_em_addrcnt(var) < (N_EM_WORDS-1) then
-          tf_em_addrcnt(var) <= tf_em_addrcnt(var) + 1;
+        if TW_84_stream_A_write(var) = '1' and tf_sim_addrcnt(var) < (N_SIM_WORDS-1) then
+          tf_sim_addrcnt(var) <= tf_sim_addrcnt(var) + 1;
+        elsif tf_sim_addrcnt(var) < (N_SIM_WORDS-1) then
+          tf_sim_addrcnt(var) <= tf_sim_addrcnt(var);
         else
-          tf_em_addrcnt(var) <= (others => '0');
+          tf_sim_addrcnt(var) <= (others => '0');
         end if;
       end if;
     end if;
-  end process rd_tf_em_addr;
-  tf_em_addr(var)   <= std_logic_vector(tf_em_addrcnt(var));
-end generate TF_emulator_ADDR_loop;
+  end process rd_tf_sim_addr;
+  tf_sim_addr(var)   <= std_logic_vector(tf_sim_addrcnt(var));
+end generate TF_simulator_ADDR_loop;
 
-TF_comp_hold_loop : for var in enum_TW_84 generate
+TF_cv_loop : for var in enum_TW_84 generate
 begin
-  hold_regs: process (sc_clk) is
-  begin  -- process hold_regs
+  cv_pipe:  process (sc_clk) is
+    begin  -- process cv_pipe
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
-        if TW_84_stream_A_write(var) = '1' then
-          comp_em_reg(var) <= tf_em_rddata(var);
-          comp_tf_reg(var) <= tf_wrdata(var);
-          comp_valid       <= '1';
-        else
-          comp_em_reg(var) <= comp_em_reg(var);
-          comp_tf_reg(var) <= comp_tf_reg(var);
-          comp_valid       <= '0';
-        end if;
+      pre_comp_valid_2(var) <= TW_84_stream_A_write(var);
+      pre_comp_valid_1(var) <= pre_comp_valid_2(var);
+      comp_valid(var)       <= pre_comp_valid_1(var);
+      comp_valid_1(var)     <= comp_valid(var);
+      comp_valid_2(var)     <= comp_valid_1(var);
+      comp_sim_reg(var)     <= tf_sim_rddata(var);
+      -- read latency on ROM_TF_L1L2 is 2 clock cycles so Sector Processor data must be delayed.
+      tf_wrdata_1(var)      <= tf_wrdata(var);
+      tf_wrdata_2(var)      <= tf_wrdata_1(var);
+      comp_tf_reg(var)      <= tf_wrdata_2(var);
     end if;
-  end process hold_regs;
-end generate TF_comp_hold_loop;
+  end process cv_pipe;
+end generate TF_cv_loop;
 
-process (sc_clk) is
-begin
-if sc_clk'event and sc_clk = '1' then  -- rising clock edge
-  comp_valid_1 <= comp_valid;
-  comp_valid_2 <= comp_valid_1;
-end if;
-end process;
 
 TF_comp_err_loop : for var in enum_TW_84 generate
 begin
   err_regs: process (sc_clk) is
   begin  -- process err_regs
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
-        if comp_valid = '1' then
-          comp_err_reg(var) <= comp_em_reg(var) xor comp_tf_reg(var);
+        if comp_valid(var) = '1' then
+          comp_err_reg(var) <= comp_sim_reg(var) xor comp_tf_reg(var);
         else
           comp_err_reg(var) <= comp_err_reg(var);
         end if;
-        if comp_valid_1 = '1' and comp_err_reg(var) /= x"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" then
+        if comp_valid_1(var) = '1' and comp_err_reg(var) /= x"00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000" then
           error_flag(var) <= '1';
         else
           error_flag(var) <= '0';
@@ -1436,16 +1436,16 @@ probe50(0)  <= START_FIRST_LINK;
 probe51     <= tf_addr(L1L2);
 probe52(0)  <= tf_ena(L1L2);
 probe53(0)  <= tf_enb(L1L2);
-probe54(0)  <= comp_valid;
-probe55(0)  <= comp_valid_1;
-probe56(0)  <= comp_valid_2;
+probe54(0)  <= comp_valid(L1L2);
+probe55(0)  <= comp_valid_1(L1L2);
+probe56(0)  <= comp_valid_2(L1L2);
 probe57(0)  <= error_flag(L1L2);
 probe58     <= comp_tf_reg(L1L2);
-probe59     <= comp_em_reg(L1L2);
+probe59     <= comp_sim_reg(L1L2);
 probe60     <= comp_err_reg(L1L2);
 probe61     <= errors(L1L2);
-probe62     <= tf_em_addr(L1L2);
-probe63     <= tf_em_rddata(L1L2);
+probe62     <= tf_sim_addr(L1L2);
+probe63     <= tf_sim_rddata(L1L2);
 
 SummerChain_debug_1 : SummerChain_debug
 PORT MAP (

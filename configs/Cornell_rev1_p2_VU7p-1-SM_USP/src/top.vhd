@@ -468,6 +468,8 @@ signal probe63      : std_logic_vector(511 downto 0);
   
   signal tw_ena          : t_arr_TW_ena;
   signal tw_enb          : t_arr_TW_ena;
+  signal tw_wrena        : t_arr_TW_ena;
+  signal tw_not_full     : t_arr_TW_ena;
   signal tw_addrcnt      : t_arr_TW_addrcnt;
   signal tw_addr         : t_arr_TW_addr;
   signal tw_wrdata       : t_arr_TW_dout_FF;
@@ -484,6 +486,8 @@ signal probe63      : std_logic_vector(511 downto 0);
   
   signal bw_ena          : t_arr_BW_ena;
   signal bw_enb          : t_arr_BW_ena;
+  signal bw_wrena        : t_arr_BW_ena;
+  signal bw_not_full     : t_arr_BW_ena;
   signal bw_addrcnt      : t_arr_BW_addrcnt;
   signal bw_addr         : t_arr_BW_addr;
   signal bw_wrdata       : t_arr_BW_dout_FF;
@@ -497,10 +501,12 @@ signal probe63      : std_logic_vector(511 downto 0);
   type t_arr_TF_errors   is array(enum_TW_84) of std_logic_vector(31 downto 0);
   type t_arr_TF_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
 
+  signal tf_addr_int     : integer;
   signal tf_ena          : t_arr_TW_ena;
   signal tf_enb          : t_arr_TW_ena;
   signal tf_addrcnt      : t_arr_TF_addrcnt;
   signal tf_addr         : t_arr_TF_addr;
+  signal tf_lp_addr      : t_arr_TF_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
   signal tf_wrdata_1     : t_arr_TF_dout_FF;
   signal tf_wrdata_2     : t_arr_TF_dout_FF;
@@ -509,7 +515,9 @@ signal probe63      : std_logic_vector(511 downto 0);
   -- Empty field in the output from FT_L1L2 corresponding to disk matches
   constant emptyDiskStub : std_logic_vector(48 downto 0) := (others => '0');
 
--- TF Emulatator signals
+-- TF Simulatator signals
+  constant N_SIM_WORDS  : natural := 9;  --! Number of words in TF simulator memory
+
   type t_arr_TF_sim_addrcnt  is array(enum_TW_84) of unsigned(7 downto 0);
   type t_arr_TF_sim_addr     is array(enum_TW_84) of std_logic_vector(7 downto 0);
 
@@ -1124,15 +1132,22 @@ begin
   
   mem_full: process (tw_addrcnt(var)) is
   begin  -- process mem_full
-          if tw_addrcnt(var) < 1020 then
-            TW_84_stream_A_full_neg(var) <= '1';
-          else
-            TW_84_stream_A_full_neg(var) <= '0';
-          end if;
-  end process mem_full;
+--      if tw_addrcnt(var) < 1020 then
+--        TW_84_stream_A_full_neg(var) <= '1';
+--      else
+--        TW_84_stream_A_full_neg(var) <= '0';
+--      end if;
+      if tw_addrcnt(var) < 1020 then
+        tw_not_full(var) <= '1';
+      else
+        tw_not_full(var) <= '0';
+      end if;
+      TW_84_stream_A_full_neg(var) <= '1';
+end process mem_full;
    
   tw_addr(var)      <= std_logic_vector(tw_addrcnt(var));
   tw_wrdata(var)    <= x"ADD3" & x"0" & "00" & tw_addr(var)  & x"000" & TW_84_stream_AV_din(var);
+  tw_wrena(var)     <= TW_84_stream_A_write(var) and tw_not_full(var);
   
 Summer_Chain_MEM : Test_Chain_Mem_1
   PORT MAP (
@@ -1144,7 +1159,7 @@ Summer_Chain_MEM : Test_Chain_Mem_1
     douta  => tw_rddata(var),
     clkb   => sc_clk,
     enb    => tw_enb(var),
-    web(0) => TW_84_stream_A_write(var),
+    web(0) => tw_wrena(var),
     addrb  => tw_addr(var),
     dinb   => tw_wrdata(var),
     doutb  => open
@@ -1179,15 +1194,22 @@ begin
   
   mem_full: process (bw_addrcnt(var)) is
   begin  -- process mem_full
-          if bw_addrcnt(var) < 1020 then
-            BW_46_stream_A_full_neg(var) <= '1';
-          else
-            BW_46_stream_A_full_neg(var) <= '0';
-          end if;
+--      if bw_addrcnt(var) < 1020 then
+--        BW_46_stream_A_full_neg(var) <= '1';
+--      else
+--        BW_46_stream_A_full_neg(var) <= '0';
+--      end if;
+    if bw_addrcnt(var) < 1020 then
+        bw_not_full(var) <= '1';
+      else
+        bw_not_full(var) <= '0';
+      end if;
+      BW_46_stream_A_full_neg(var) <= '1';
   end process mem_full;
    
   bw_addr(var)      <= std_logic_vector(bw_addrcnt(var));
   bw_wrdata(var)    <= x"ADD3" & x"0" & "00" & bw_addr(var) & x"00000000" & x"0000" & "00" & BW_46_stream_AV_din(var);
+  bw_wrena(var)     <= BW_46_stream_A_write(var) and bw_not_full(var);
   
 Summer_Chain_MEM : Test_Chain_Mem_1
   PORT MAP (
@@ -1199,7 +1221,7 @@ Summer_Chain_MEM : Test_Chain_Mem_1
     douta  => bw_rddata(var),
     clkb   => sc_clk,
     enb    => bw_enb(var),
-    web(0) => BW_46_stream_A_write(var),
+    web(0) => bw_wrena(var),
     addrb  => bw_addr(var),
     dinb   => bw_wrdata(var),
     doutb  => open
@@ -1255,7 +1277,10 @@ begin
 --  end process mem_full;
    
   tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
-  tf_wrdata(var)    <= x"ADD3" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_addr_int       <= (to_integer(tf_addrcnt(var))/16) mod N_SIM_WORDS;
+  tf_lp_addr(var)   <= std_logic_vector(to_unsigned(tf_addr_int,tf_lp_addr(var)'length));
+--  tf_wrdata(var)    <= x"ADD3" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_wrdata(var)    <= x"ADD3" & "00" & tf_lp_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
   
 Summer_Chain_512_MEM : Test_Chain_512_Mem
   PORT MAP (
@@ -1282,7 +1307,6 @@ ROM_TF_L1L2_i : ROM_TF_L1L2
   );
 
 TF_simulator_ADDR_loop : for var in enum_TW_84 generate
-  constant N_SIM_WORDS  : natural := 9;  --! Number of words in TF simulator memory
 begin
   rd_tf_sim_addr: process (sc_clk) is
   begin  -- process rd_tf_sim_addr
@@ -1292,10 +1316,10 @@ begin
       else
         if TW_84_stream_A_write(var) = '1' and tf_sim_addrcnt(var) < (N_SIM_WORDS-1) then
           tf_sim_addrcnt(var) <= tf_sim_addrcnt(var) + 1;
-        elsif tf_sim_addrcnt(var) < (N_SIM_WORDS-1) then
-          tf_sim_addrcnt(var) <= tf_sim_addrcnt(var);
-        else
+        elsif TW_84_stream_A_write(var) = '1' then
           tf_sim_addrcnt(var) <= (others => '0');
+        else
+          tf_sim_addrcnt(var) <= tf_sim_addrcnt(var);
         end if;
       end if;
     end if;

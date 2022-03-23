@@ -469,7 +469,7 @@ signal probe63      : std_logic_vector(511 downto 0);
   signal tw_ena          : t_arr_TW_ena;
   signal tw_enb          : t_arr_TW_ena;
   signal tw_wrena        : t_arr_TW_ena;
-  signal tw_not_full     : t_arr_TW_ena;
+  signal tw_not_full     : t_arr_TW_ena := (others => '1');
   signal tw_addrcnt      : t_arr_TW_addrcnt;
   signal tw_addr         : t_arr_TW_addr;
   signal tw_wrdata       : t_arr_TW_dout_FF;
@@ -487,7 +487,7 @@ signal probe63      : std_logic_vector(511 downto 0);
   signal bw_ena          : t_arr_BW_ena;
   signal bw_enb          : t_arr_BW_ena;
   signal bw_wrena        : t_arr_BW_ena;
-  signal bw_not_full     : t_arr_BW_ena;
+  signal bw_not_full     : t_arr_BW_ena := (others => '1');
   signal bw_addrcnt      : t_arr_BW_addrcnt;
   signal bw_addr         : t_arr_BW_addr;
   signal bw_wrdata       : t_arr_BW_dout_FF;
@@ -501,12 +501,14 @@ signal probe63      : std_logic_vector(511 downto 0);
   type t_arr_TF_errors   is array(enum_TW_84) of std_logic_vector(31 downto 0);
   type t_arr_TF_dout_FF  is array(enum_TW_84) of std_logic_vector(511 downto 0);
 
-  signal tf_addr_int     : integer;
   signal tf_ena          : t_arr_TW_ena;
   signal tf_enb          : t_arr_TW_ena;
+  signal tf_wrena        : t_arr_TW_ena;
+  signal tf_not_full     : t_arr_TW_ena := (others => '1');
   signal tf_addrcnt      : t_arr_TF_addrcnt;
   signal tf_addr         : t_arr_TF_addr;
-  signal tf_lp_addr      : t_arr_TF_addr;
+  signal sim_wrd_cnt     : t_arr_TW_addrcnt;
+  signal sim_wrd         : t_arr_TW_addr;
   signal tf_wrdata       : t_arr_TF_dout_FF;
   signal tf_wrdata_1     : t_arr_TF_dout_FF;
   signal tf_wrdata_2     : t_arr_TF_dout_FF;
@@ -1122,10 +1124,14 @@ begin
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
       if sc_rst = '1' then
         tw_addrcnt(var) <= (others => '0');
+        tw_not_full(var) <= '1';
       else
-        if TW_84_stream_A_write(var) = '1' and tw_addrcnt(var) < 1020 then
+        if TW_84_stream_A_write(var) = '1' then
           tw_addrcnt(var) <= tw_addrcnt(var) + 4;
         end if;
+      end if;
+      if tw_addrcnt(var) >= 1020 and tw_not_full(var) = '1' then
+        tw_not_full(var) <= '0';
       end if;
     end if;
   end process fill_mem;
@@ -1137,11 +1143,6 @@ begin
 --      else
 --        TW_84_stream_A_full_neg(var) <= '0';
 --      end if;
-      if tw_addrcnt(var) < 1020 then
-        tw_not_full(var) <= '1';
-      else
-        tw_not_full(var) <= '0';
-      end if;
       TW_84_stream_A_full_neg(var) <= '1';
 end process mem_full;
    
@@ -1184,10 +1185,14 @@ begin
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
       if sc_rst = '1' then
         bw_addrcnt(var) <= (others => '0');
+        bw_not_full(var) <= '1';
       else
-        if BW_46_stream_A_write(var) = '1' and bw_addrcnt(var) < 1020 then
+        if BW_46_stream_A_write(var) = '1' then
           bw_addrcnt(var) <= bw_addrcnt(var) + 4;
         end if;
+      end if;
+      if bw_addrcnt(var) >= 1020 and bw_not_full(var) = '1' then
+        bw_not_full(var) <= '0';
       end if;
     end if;
   end process fill_mem;
@@ -1199,11 +1204,6 @@ begin
 --      else
 --        BW_46_stream_A_full_neg(var) <= '0';
 --      end if;
-    if bw_addrcnt(var) < 1020 then
-        bw_not_full(var) <= '1';
-      else
-        bw_not_full(var) <= '0';
-      end if;
       BW_46_stream_A_full_neg(var) <= '1';
   end process mem_full;
    
@@ -1259,13 +1259,31 @@ begin
     if sc_clk'event and sc_clk = '1' then  -- rising clock edge
       if sc_rst = '1' then
         tf_addrcnt(var) <= (others => '0');
+        tf_not_full(var) <= '1';
       else
-        if TW_84_stream_A_write(var) = '1' and tf_addrcnt(var) < 16368 then
+        if TW_84_stream_A_write(var) = '1' then
           tf_addrcnt(var) <= tf_addrcnt(var) + 16;
         end if;
       end if;
+      if tf_addrcnt(var) >= 16368 and tf_not_full(var) = '1' then
+        tf_not_full(var) <= '0';
+      end if;
     end if;
   end process fill_mem;
+  sim_word_cnt: process (sc_clk) is
+  begin  -- process sim_word_cnt
+    if sc_clk'event and sc_clk = '1' then  -- rising clock edge
+      if sc_rst = '1' then
+        sim_wrd_cnt(var) <= (others => '0');
+      else
+        if TW_84_stream_A_write(var) = '1' and sim_wrd_cnt(var) < N_SIM_WORDS-1 then
+          sim_wrd_cnt(var) <= sim_wrd_cnt(var) + 1;
+        else
+          sim_wrd_cnt(var) <= (others => '0');
+        end if;
+      end if;
+    end if;
+  end process sim_word_cnt;
   
 --  mem_full: process (tf_addrcnt(var)) is
 --  begin  -- process mem_full
@@ -1277,10 +1295,11 @@ begin
 --  end process mem_full;
    
   tf_addr(var)      <= std_logic_vector(tf_addrcnt(var));
-  tf_addr_int       <= (to_integer(tf_addrcnt(var))/16) mod N_SIM_WORDS;
-  tf_lp_addr(var)   <= std_logic_vector(to_unsigned(tf_addr_int,tf_lp_addr(var)'length));
+  sim_wrd(var)      <= std_logic_vector(sim_wrd_cnt(var));
 --  tf_wrdata(var)    <= x"ADD3" & "00" & To_StdLogicVector(To_bitvector(tf_addr(var)) srl 4) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
-  tf_wrdata(var)    <= x"ADD3" & "00" & tf_lp_addr(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+  tf_wrdata(var)    <= x"ADD3" & x"0" & "00" & sim_wrd(var) & x"0000" & TW_84_stream_AV_din(var) & BW_46_stream_AV_din(L1L2_L3) & BW_46_stream_AV_din(L1L2_L4) & BW_46_stream_AV_din(L1L2_L5) & BW_46_stream_AV_din(L1L2_L6) & emptyDiskStub & emptyDiskStub & emptyDiskStub & emptyDiskStub;
+
+  tf_wrena(var)     <= TW_84_stream_A_write(var) and tf_not_full(var);
   
 Summer_Chain_512_MEM : Test_Chain_512_Mem
   PORT MAP (
@@ -1292,7 +1311,7 @@ Summer_Chain_512_MEM : Test_Chain_512_Mem
     douta  => tf_rd_AXI_data(var),
     clkb   => sc_clk,
     enb    => tf_enb(var),
-    web(0) => TW_84_stream_A_write(var),
+    web(0) => tf_wrena(var),
     addrb  => tf_addr(var),
     dinb   => tf_wrdata(var),
     doutb  => open

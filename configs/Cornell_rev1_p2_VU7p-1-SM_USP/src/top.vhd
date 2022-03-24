@@ -1276,10 +1276,10 @@ begin
       if sc_rst = '1' then
         sim_wrd_cnt(var) <= (others => '0');
       else
-        if TW_84_stream_A_write(var) = '1' and sim_wrd_cnt(var) < N_SIM_WORDS-1 then
-          sim_wrd_cnt(var) <= sim_wrd_cnt(var) + 1;
-        else
+        if TW_84_stream_A_write(var) = '1' and sim_wrd_cnt(var) = N_SIM_WORDS-1 then
           sim_wrd_cnt(var) <= (others => '0');
+        elsif TW_84_stream_A_write(var) = '1' then
+          sim_wrd_cnt(var) <= sim_wrd_cnt(var) + 1;
         end if;
       end if;
     end if;

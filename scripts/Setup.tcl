@@ -13,6 +13,7 @@ file mkdir $outputDir
 
 set projectDir ${apollo_root_path}/proj/
 file mkdir $projectDir
+file link -symbolic LUTs ../src/tracktrigger/emData/LUTsReduced/
 if {[file isfile $projectDir/$top.xpr]} {
     puts "Re-creating project file."
 } else {
